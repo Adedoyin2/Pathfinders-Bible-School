@@ -1,0 +1,2693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathfinder International Bible College</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --primary-brown: #8B4513;
+            --deep-brown: #5D4037;
+            --white: #FFFFFF;
+            --light-brown: #D7CCC8;
+            --dark-brown: #4E342E;
+            --gold: #FFD700;
+            --transition: all 0.3s ease;
+        }
+        
+        /* ===== GLOBAL STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-brown);
+            color: var(--deep-brown);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* ===== HEADER STYLES ===== */
+        header {
+            background-color: var(--primary-brown);
+            color: var(--white);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            background-color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-brown);
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        nav ul li a:hover {
+            color: var(--light-brown);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-info span {
+            margin-right: 15px;
+        }
+        
+        .btn {
+            background-color: var(--deep-brown);
+            color: var(--white);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .btn:hover {
+            background-color: var(--dark-brown);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* ===== MAIN CONTENT STYLES ===== */
+        main {
+            min-height: calc(100vh - 160px);
+            padding: 30px 0;
+        }
+        
+        .page {
+            display: none;
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .active {
+            display: block;
+        }
+        
+        h2 {
+            color: var(--deep-brown);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-brown);
+        }
+        
+        /* ===== LOGIN PAGE STYLES ===== */
+        .login-form, .signup-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--light-brown);
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--primary-brown);
+            outline: none;
+        }
+        
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .form-footer a {
+            color: var(--primary-brown);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        /* ===== HOME PAGE STYLES ===== */
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: var(--light-brown);
+            border-radius: 8px;
+            animation: slideInFromTop 0.5s ease-out;
+        }
+        
+        @keyframes slideInFromTop {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .welcome-section h2 {
+            border-bottom: none;
+            color: var(--deep-brown);
+        }
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+        
+        .progress-section, .certificate-section {
+            background-color: var(--light-brown);
+            padding: 20px;
+            border-radius: 8px;
+            animation: slideInFromLeft 0.5s ease-out;
+        }
+        
+        @keyframes slideInFromLeft {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .progress-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: var(--white);
+            border-radius: 6px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        
+        .progress-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: var(--primary-brown);
+            border-radius: 5px;
+            transition: width 0.5s ease-in-out;
+        }
+        
+        .certificate-item {
+            padding: 15px;
+            background-color: var(--white);
+            border-radius: 6px;
+            margin-bottom: 15px;
+            text-align: center;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        
+        .certificate-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .certificate-item i {
+            font-size: 2rem;
+            color: var(--primary-brown);
+            margin-bottom: 10px;
+        }
+        
+        .attendance-section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: var(--light-brown);
+            border-radius: 8px;
+            animation: slideInFromRight 0.5s ease-out;
+        }
+        
+        @keyframes slideInFromRight {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .attendance-calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .attendance-day {
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--white);
+            border-radius: 4px;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .attendance-day:hover {
+            transform: scale(1.1);
+        }
+        
+        .attendance-day.present {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .attendance-day.absent {
+            background-color: #F44336;
+            color: white;
+        }
+        
+        /* ===== CATEGORIES PAGE STYLES ===== */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .category-card {
+            background-color: var(--light-brown);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            animation: zoomIn 0.5s ease-out;
+        }
+        
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-card i {
+            font-size: 2.5rem;
+            color: var(--primary-brown);
+            margin-bottom: 15px;
+        }
+        
+        .category-card h3 {
+            margin-bottom: 10px;
+        }
+        
+        /* ===== COURSES PAGE STYLES ===== */
+        .courses-list {
+            margin-top: 20px;
+        }
+        
+        .course-item {
+            background-color: var(--light-brown);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            animation: slideInFromBottom 0.5s ease-out;
+        }
+        
+        @keyframes slideInFromBottom {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .course-item:hover {
+            background-color: #e0d7d2;
+            transform: translateX(10px);
+        }
+        
+        .course-item h3 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .course-status {
+            font-size: 0.9rem;
+            color: var(--deep-brown);
+        }
+        
+        /* ===== VIDEO PAGE STYLES ===== */
+        .video-container {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .video-player {
+            flex: 2;
+        }
+        
+        .video-info {
+            flex: 1;
+            background-color: var(--light-brown);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        .video-player-wrapper {
+            width: 100%;
+            background-color: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .video-player-element {
+            width: 100%;
+            height: 400px;
+            display: block;
+        }
+        
+        .video-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .video-control-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 5px;
+        }
+        
+        .video-progress {
+            flex: 1;
+            height: 5px;
+            background: #555;
+            border-radius: 3px;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .video-progress-filled {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: var(--primary-brown);
+            border-radius: 3px;
+        }
+        
+        .video-time {
+            color: white;
+            font-size: 0.9rem;
+        }
+        
+        .video-player-placeholder {
+            width: 100%;
+            height: 400px;
+            background-color: #333;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .video-player-placeholder:hover {
+            background-color: #444;
+        }
+        
+        .video-list {
+            margin-top: 20px;
+        }
+        
+        .video-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: var(--white);
+            border-radius: 6px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .video-item.locked {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .video-item i {
+            margin-right: 10px;
+            color: var(--primary-brown);
+        }
+        
+        .video-item.active {
+            background-color: var(--primary-brown);
+            color: white;
+            transform: scale(1.02);
+        }
+        
+        .video-item.active i {
+            color: white;
+        }
+        
+        .video-item:not(.locked):hover {
+            background-color: #f5f5f5;
+            transform: translateX(5px);
+        }
+        
+        /* ===== QUIZ PAGE STYLES ===== */
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .quiz-question {
+            background-color: var(--light-brown);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            animation: pulse 0.5s;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        
+        .quiz-option {
+            padding: 15px;
+            background-color: var(--white);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .quiz-option:hover {
+            background-color: #f5f5f5;
+            transform: translateX(5px);
+        }
+        
+        .quiz-option.selected {
+            background-color: var(--primary-brown);
+            color: white;
+            transform: scale(1.02);
+        }
+        
+        .quiz-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        /* ===== FINAL EXAM PAGE STYLES ===== */
+        .exam-info {
+            background-color: var(--light-brown);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        /* ===== CERTIFICATE PAGE STYLES ===== */
+        .certificate-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #f9f3e9;
+            border: 20px solid #8B4513;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            animation: certificateAppear 1s ease-out;
+        }
+        
+        @keyframes certificateAppear {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        .certificate-logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            height: 80px;
+        }
+        
+        .certificate-title {
+            font-size: 2.5rem;
+            color: var(--deep-brown);
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .certificate-subtitle {
+            font-size: 1.2rem;
+            color: var(--deep-brown);
+            margin-bottom: 30px;
+        }
+        
+        .certificate-awarded {
+            font-size: 1.5rem;
+            margin: 30px 0;
+        }
+        
+        .certificate-student {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 20px 0;
+            color: var(--deep-brown);
+        }
+        
+        .certificate-course {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+        }
+        
+        .certificate-signatures {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 60px;
+        }
+        
+        .signature {
+            text-align: center;
+            width: 40%;
+        }
+        
+        .signature-line {
+            border-top: 2px solid var(--deep-brown);
+            margin: 10px 0;
+            padding-top: 5px;
+        }
+        
+        .certificate-badge {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 100px;
+            background-color: var(--primary-brown);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        /* ===== ABOUT AND CONTACT PAGES ===== */
+        .about-content, .contact-content {
+            line-height: 1.6;
+        }
+        
+        .about-content h3, .contact-content h3 {
+            margin: 20px 0 10px;
+            color: var(--deep-brown);
+        }
+        
+        .contact-form {
+            margin-top: 20px;
+        }
+        
+        /* ===== NOTIFICATION STYLES ===== */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background-color: var(--primary-brown);
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            animation: slideInRight 0.5s, slideOutRight 0.5s 2.5s forwards;
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideOutRight {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+        
+        /* ===== FOOTER STYLES ===== */
+        footer {
+            background-color: var(--deep-brown);
+            color: var(--white);
+            padding: 20px 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-links a {
+            color: var(--white);
+            margin-left: 15px;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        /* ===== RESPONSIVE STYLES ===== */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                justify-content: center;
+            }
+            
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .video-container {
+                flex-direction: column;
+            }
+            
+            .certificate-signatures {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .signature {
+                width: 80%;
+                margin-bottom: 20px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .footer-links {
+                margin-top: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== HEADER SECTION ===== -->
+    <header id="header" style="display: none;">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <!-- School Logo Placeholder -->
+                    <div class="logo-img">PIBC</div>
+                    <h1>Pathfinder International Bible College</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" onclick="showPage('home')">Home</a></li>
+                        <li><a href="#" onclick="showPage('categories')">Categories</a></li>
+                        <li><a href="#" onclick="showPage('about')">About</a></li>
+                        <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="user-info">
+                    <span id="userName">Welcome, Student</span>
+                    <button class="btn" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== MAIN CONTENT SECTION ===== -->
+    <main>
+        <div class="container">
+            <!-- ===== LOGIN PAGE ===== -->
+            <div id="login" class="page active">
+                <h2>Login to Your Account</h2>
+                <div class="login-form">
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" placeholder="Enter your password">
+                    </div>
+                    <button class="btn" style="width: 100%;" onclick="login()">Login</button>
+                    <div class="form-footer">
+                        <p>Don't have an account? <a href="#" onclick="showPage('signup')">Sign up here</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== SIGNUP PAGE ===== -->
+            <div id="signup" class="page">
+                <h2>Create an Account</h2>
+                <div class="signup-form">
+                    <div class="form-group">
+                        <label for="signupName">Full Name</label>
+                        <input type="text" id="signupName" placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail">Email</label>
+                        <input type="email" id="signupEmail" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword">Password</label>
+                        <input type="password" id="signupPassword" placeholder="Create a password">
+                    </div>
+                    <div class="form-group">
+                        <label for="signupCategory">Select Category</label>
+                        <select id="signupCategory">
+                            <option value="">Choose a category</option>
+                            <option value="certificate">Certificate</option>
+                            <option value="diploma">Diploma</option>
+                            <option value="phd">PhD Advance</option>
+                        </select>
+                    </div>
+                    <button class="btn" style="width: 100%;" onclick="signup()">Sign Up</button>
+                    <div class="form-footer">
+                        <p>Already have an account? <a href="#" onclick="showPage('login')">Login here</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== HOME PAGE ===== -->
+            <div id="home" class="page">
+                <div class="welcome-section">
+                    <h2 id="welcomeMessage">Welcome to Pathfinder International Bible College</h2>
+                    <p>Advancing God's Kingdom through quality biblical education</p>
+                </div>
+                
+                <div class="dashboard">
+                    <div class="progress-section">
+                        <h2>Your Learning Progress</h2>
+                        <div id="progressContainer">
+                            <!-- Progress items will be generated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="certificate-section">
+                        <h2>Your Certificates</h2>
+                        <div id="certificatesContainer">
+                            <!-- Certificates will be generated by JavaScript -->
+                        </div>
+                        <button class="btn" style="width: 100%; margin-top: 15px;" onclick="showPage('categories')">Browse Categories</button>
+                    </div>
+                </div>
+                
+                <div class="attendance-section">
+                    <h2>Monthly Attendance</h2>
+                    <p>Mark your attendance daily to track your progress</p>
+                    <div class="attendance-calendar" id="attendanceCalendar">
+                        <!-- Attendance days will be generated by JavaScript -->
+                    </div>
+                    <button class="btn" style="margin-top: 15px;" onclick="markAttendance()">Mark Today's Attendance</button>
+                </div>
+            </div>
+
+            <!-- ===== CATEGORIES PAGE ===== -->
+            <div id="categories" class="page">
+                <h2>Select Your Learning Category</h2>
+                <p style="margin-bottom: 20px;">Choose a category to begin or continue your biblical education journey.</p>
+                
+                <div class="categories-grid">
+                    <div class="category-card" onclick="selectCategory('certificate')">
+                        <i class="fas fa-certificate"></i>
+                        <h3>Certificate Program</h3>
+                        <p>Foundation biblical studies</p>
+                        <div class="progress-bar" style="margin-top: 10px;">
+                            <div class="progress-fill" id="certificateProgress"></div>
+                        </div>
+                    </div>
+                    <div class="category-card" onclick="selectCategory('diploma')">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h3>Diploma Program</h3>
+                        <p>Intermediate biblical studies</p>
+                        <div class="progress-bar" style="margin-top: 10px;">
+                            <div class="progress-fill" id="diplomaProgress"></div>
+                        </div>
+                    </div>
+                    <div class="category-card" onclick="selectCategory('phd')">
+                        <i class="fas fa-user-graduate"></i>
+                        <h3>PhD Advance Program</h3>
+                        <p>Advanced theological studies</p>
+                        <div class="progress-bar" style="margin-top: 10px;">
+                            <div class="progress-fill" id="phdProgress"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn" onclick="showPage('home')">Back to Home</button>
+                </div>
+            </div>
+
+            <!-- ===== COURSES PAGE ===== -->
+            <div id="courses" class="page">
+                <h2 id="coursesCategory">Courses</h2>
+                <p style="margin-bottom: 20px;">Select a course to begin your studies.</p>
+                
+                <div class="courses-list" id="coursesList">
+                    <!-- Courses will be generated by JavaScript -->
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn" onclick="showPage('categories')">Back to Categories</button>
+                    <button class="btn" onclick="takeFinalExam()" style="margin-left: 10px; background-color: var(--gold); color: var(--deep-brown);">Take Final Exam</button>
+                </div>
+            </div>
+
+            <!-- ===== VIDEO PAGE ===== -->
+            <div id="video" class="page">
+                <h2 id="videoCourse">Course Video</h2>
+                
+                <div class="video-container">
+                    <div class="video-player">
+                        <div class="video-player-wrapper" id="videoPlayerWrapper">
+                            <!-- Video player will be dynamically inserted here -->
+                        </div>
+                        
+                        <div class="video-info">
+                            <h3>Video Information</h3>
+                            <div id="videoDetails">
+                                <!-- Video details will be populated by JavaScript -->
+                            </div>
+                            <div style="margin-top: 20px;">
+                                <button class="btn" onclick="showPage('material')" style="width: 100%; margin-bottom: 10px;">Study Material</button>
+                                <button class="btn" onclick="takeQuiz()" style="width: 100%;">Take Quiz</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="video-list">
+                    <h3>Course Videos</h3>
+                    <div id="videoListContainer">
+                        <!-- Video list will be generated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn" onclick="showPage('courses')">Back to Courses</button>
+                </div>
+            </div>
+
+            <!-- ===== STUDY MATERIAL PAGE ===== -->
+            <div id="material" class="page">
+                <h2>Study Material</h2>
+                <div id="materialContent">
+                    <!-- Material content will be populated by JavaScript -->
+                </div>
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn" onclick="showPage('video')">Back to Video</button>
+                    <button class="btn" onclick="takeQuiz()" style="margin-left: 10px;">Take Quiz</button>
+                </div>
+            </div>
+
+            <!-- ===== QUIZ PAGE ===== -->
+            <div id="quiz" class="page">
+                <h2>Course Quiz</h2>
+                <p>You need to score 80% or higher to proceed to the next video.</p>
+                
+                <div class="quiz-container">
+                    <div class="quiz-question">
+                        <h3 id="quizQuestion">Question will appear here</h3>
+                        <div class="quiz-options" id="quizOptions">
+                            <!-- Options will be generated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-navigation">
+                        <button class="btn" id="prevQuestion" onclick="previousQuestion()">Previous</button>
+                        <button class="btn" id="nextQuestion" onclick="nextQuestion()">Next</button>
+                        <button class="btn" id="submitQuiz" onclick="submitQuiz()" style="display: none;">Submit Quiz</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== FINAL EXAM PAGE ===== -->
+            <div id="finalExam" class="page">
+                <h2>Final Exam</h2>
+                <div class="exam-info">
+                    <p>This is the final exam for the <span id="examCategoryName"></span> program.</p>
+                    <p>You need to score 80% or higher to earn your certificate.</p>
+                    <p><strong>Number of questions:</strong> <span id="examQuestionCount">20</span></p>
+                </div>
+                
+                <div class="quiz-container">
+                    <div class="quiz-question">
+                        <h3 id="examQuestion">Question will appear here</h3>
+                        <div class="quiz-options" id="examOptions">
+                            <!-- Options will be generated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="quiz-navigation">
+                        <button class="btn" id="prevExamQuestion" onclick="previousExamQuestion()">Previous</button>
+                        <button class="btn" id="nextExamQuestion" onclick="nextExamQuestion()">Next</button>
+                        <button class="btn" id="submitExam" onclick="submitExam()" style="display: none;">Submit Exam</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== CERTIFICATE PAGE ===== -->
+            <div id="certificate" class="page">
+                <h2>Your Certificate</h2>
+                <p>Congratulations on completing your course! Download your certificate below.</p>
+                
+                <div class="certificate-container">
+                    <div class="certificate-logo">PIBC</div>
+                    <div class="certificate-title">Certificate of Completion</div>
+                    <div class="certificate-subtitle">Pathfinder International Bible College</div>
+                    <div class="certificate-awarded">This is to certify that</div>
+                    <div class="certificate-student" id="certStudentName">Student Name</div>
+                    <div class="certificate-course">has successfully completed the <span id="certCourseName">Course Name</span></div>
+                    <div class="certificate-date">Awarded on <span id="certDate">Date</span></div>
+                    <div class="certificate-id">Certificate ID: <span id="certId">PIBC-2023-001</span></div>
+                    
+                    <div class="certificate-signatures">
+                        <div class="signature">
+                            <div class="signature-line"></div>
+                            <div>Bishop Michael Asiwaju Chibuzor</div>
+                            <div>Founder</div>
+                        </div>
+                        <div class="signature">
+                            <div class="signature-line"></div>
+                            <div>Apostle Olabinpe Chibuzor</div>
+                            <div>Co-Founder</div>
+                        </div>
+                    </div>
+                    
+                    <div class="certificate-badge">
+                        <i class="fas fa-award"></i>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn" onclick="downloadCertificate()">Download Certificate</button>
+                    <button class="btn" onclick="showPage('home')" style="margin-left: 10px;">Back to Home</button>
+                </div>
+            </div>
+
+            <!-- ===== ABOUT PAGE ===== -->
+            <div id="about" class="page">
+                <h2>About Pathfinder International Bible College</h2>
+                <div class="about-content">
+                    <p>Pathfinder International Bible College is a divine institution established to raise end-time army for Christ through sound biblical teachings and practical ministry training.</p>
+                    
+                    <h3>Our Mission</h3>
+                    <p>To equip believers with in-depth knowledge of God's Word and practical ministry skills for effective service in God's kingdom.</p>
+                    
+                    <h3>Our Vision</h3>
+                    <p>To be a global center of excellence for biblical education and ministry training.</p>
+                    
+                    <h3>Our Founder</h3>
+                    <p>Bishop Michael Asiwaju Chibuzor is a renowned minister of the Gospel with over three decades of ministry experience. He is the presiding Bishop of Pathfinder International Bible Church and the visionary behind Pathfinder International Bible College.</p>
+                    
+                    <h3>Our Co-Founder</h3>
+                    <p>Apostle Olabinpe Chibuzor is a dynamic woman of God who co-labors with her husband in ministry. She oversees the women's ministry and children's department of the church.</p>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn" onclick="showPage('home')">Back to Home</button>
+                </div>
+            </div>
+
+            <!-- ===== CONTACT PAGE ===== -->
+            <div id="contact" class="page">
+                <h2>Contact Us</h2>
+                <div class="contact-content">
+                    <p>We'd love to hear from you. Please reach out to us with any questions or inquiries.</p>
+                    
+                    <h3>Contact Information</h3>
+                    <p><strong>Address:</strong> Pathfinder International Bible Church, Port Harcourt, Nigeria</p>
+                    <p><strong>Email:</strong> info@pibc.org</p>
+                    <p><strong>Phone:</strong> +234 123 456 7890</p>
+                    
+                    <h3>Send us a Message</h3>
+                    <div class="contact-form">
+                        <div class="form-group">
+                            <label for="contactName">Your Name</label>
+                            <input type="text" id="contactName" placeholder="Enter your name">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactEmail">Your Email</label>
+                            <input type="email" id="contactEmail" placeholder="Enter your email">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactMessage">Your Message</label>
+                            <textarea id="contactMessage" rows="5" placeholder="Enter your message" style="width: 100%; padding: 10px; border: 1px solid var(--light-brown); border-radius: 4px;"></textarea>
+                        </div>
+                        <button class="btn" onclick="sendMessage()">Send Message</button>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="btn" onclick="showPage('home')">Back to Home</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ===== FOOTER SECTION ===== -->
+    <footer id="footer" style="display: none;">
+        <div class="container">
+            <div class="footer-content">
+                <div class="copyright">
+                    <p>&copy; 2023 Pathfinder International Bible College. All rights reserved.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#" onclick="showPage('about')">About</a>
+                    <a href="#" onclick="showPage('contact')">Contact</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== APPLICATION STATE VARIABLES =====
+        let currentUser = null;           // Currently logged in user
+        let currentCategory = null;       // Currently selected category
+        let currentCourse = null;         // Currently selected course
+        let currentVideo = 0;             // Currently selected video
+        let quizQuestions = [];           // Questions for current quiz
+        let currentQuestion = 0;          // Current question index in quiz
+        let userAnswers = [];             // User's answers for current quiz
+        let examQuestions = [];           // Questions for final exam
+        let currentExamQuestion = 0;      // Current question index in exam
+        let userExamAnswers = [];         // User's answers for final exam
+        let videoPlayer = null;           // HTML5 Video element instance
+        let videoProgressInterval = null; // Interval for tracking video progress
+        
+        // ===== CATEGORIES AND COURSES DATA WITH VIDEO FILES =====
+        
+        // IMPORTANT: Replace these video file paths with your actual MP4 files
+        // Place all your MP4 videos in a "videos" folder in the same directory as this HTML file
+        const categories = {
+            certificate: {
+                name: "Certificate Program",
+                courses: [
+                    { 
+                        id: 1, 
+                        name: "Introduction to Bible Study",
+                        progress: 0, 
+                        videos: 8, 
+                        completedVideos: 0,
+                        videoFiles: [
+                            "videos/intro1.mp4",  // Replace with your actual video file
+                            "intro2.mp4",  // Replace with your actual video file
+                            "videos/intro3.mp4",  // Replace with your actual video file
+                            "videos/intro4.mp4",  // Replace with your actual video file
+                            "videos/intro5.mp4",  // Replace with your actual video file
+                            "videos/intro6.mp4",  // Replace with your actual video file
+                            "videos/intro7.mp4",  // Replace with your actual video file
+                            "videos/intro8.mp4"   // Replace with your actual video file
+                        ]
+                    },
+                    { 
+                        id: 2, 
+                        name: "Old Testament Survey",
+                        progress: 0, 
+                        videos: 8, 
+                        completedVideos: 0,
+                        videoFiles: [
+                            "videos/ot1.mp4",     // Replace with your actual video file
+                            "videos/ot2.mp4",     // Replace with your actual video file
+                            "videos/ot3.mp4",     // Replace with your actual video file
+                            "videos/ot4.mp4",     // Replace with your actual video file
+                            "videos/ot5.mp4",     // Replace with your actual video file
+                            "videos/ot6.mp4",     // Replace with your actual video file
+                            "videos/ot7.mp4",     // Replace with your actual video file
+                            "videos/ot8.mp4"      // Replace with your actual video file
+                        ]
+                    },
+                    { 
+                        id: 3, 
+                        name: "New Testament Survey",
+                        progress: 0, 
+                        videos: 8, 
+                        completedVideos: 0,
+                        videoFiles: [
+                            "videos/nt1.mp4",     // Replace with your actual video file
+                            "videos/nt2.mp4",     // Replace with your actual video file
+                            "videos/nt3.mp4",     // Replace with your actual video file
+                            "videos/nt4.mp4",     // Replace with your actual video file
+                            "videos/nt5.mp4",     // Replace with your actual video file
+                            "videos/nt6.mp4",     // Replace with your actual video file
+                            "videos/nt7.mp4",     // Replace with your actual video file
+                            "videos/nt8.mp4"      // Replace with your actual video file
+                        ]
+                    },
+                    { 
+                        id: 4, 
+                        name: "Christian Doctrines",
+                        progress: 0, 
+                        videos: 8, 
+                        completedVideos: 0,
+                        videoFiles: [
+                            "videos/doctrine1.mp4",  // Replace with your actual video file
+                            "videos/doctrine2.mp4",  // Replace with your actual video file
+                            "videos/doctrine3.mp4",  // Replace with your actual video file
+                            "videos/doctrine4.mp4",  // Replace with your actual video file
+                            "videos/doctrine5.mp4",  // Replace with your actual video file
+                            "videos/doctrine6.mp4",  // Replace with your actual video file
+                            "videos/doctrine7.mp4",  // Replace with your actual video file
+                            "videos/doctrine8.mp4"   // Replace with your actual video file
+                        ]
+                    },
+                    { 
+                        id: 5, 
+                        name: "Church History",
+                        progress: 0, 
+                        videos: 8, 
+                        completedVideos: 0,
+                        videoFiles: [
+                            "videos/church1.mp4",    // Replace with your actual video file
+                            "videos/church2.mp4",    // Replace with your actual video file
+                            "videos/church3.mp4",    // Replace with your actual video file
+                            "videos/church4.mp4",    // Replace with your actual video file
+                            "videos/church5.mp4",    // Replace with your actual video file
+                            "videos/church6.mp4",    // Replace with your actual video file
+                            "videos/church7.mp4",    // Replace with your actual video file
+                            "videos/church8.mp4"     // Replace with your actual video file
+                        ]
+                    },
+                    { 
+                        id: 6, 
+                        name: "Christian Ethics",
+                        progress: 0, 
+                        videos: 8, 
+                        completedVideos: 0,
+                        videoFiles: [
+                            "videos/ethics1.mp4",    // Replace with your actual video file
+                            "videos/ethics2.mp4",    // Replace with your actual video file
+                            "videos/ethics3.mp4",    // Replace with your actual video file
+                            "videos/ethics4.mp4",    // Replace with your actual video file
+                            "videos/ethics5.mp4",    // Replace with your actual video file
+                            "videos/ethics6.mp4",    // Replace with your actual video file
+                            "videos/ethics7.mp4",    // Replace with your actual video file
+                            "videos/ethics8.mp4"     // Replace with your actual video file
+                        ]
+                    },
+                    { 
+                        id: 7, 
+                        name: "Homiletics",
+                        progress: 0, 
+                        videos: 8, 
+                        completedVideos: 0,
+                        videoFiles: [
+                            "videos/homiletics1.mp4", // Replace with your actual video file
+                            "videos/homiletics2.mp4", // Replace with your actual video file
+                            "videos/homiletics3.mp4", // Replace with your actual video file
+                            "videos/homiletics4.mp4", // Replace with your actual video file
+                            "videos/homiletics5.mp4", // Replace with your actual video file
+                            "videos/homiletics6.mp4", // Replace with your actual video file
+                            "videos/homiletics7.mp4", // Replace with your actual video file
+                            "videos/homiletics8.mp4"  // Replace with your actual video file
+                        ]
+                    },
+                    { 
+                        id: 8, 
+                        name: "Pastoral Ministry",
+                        progress: 0, 
+                        videos: 8, 
+                        completedVideos: 0,
+                        videoFiles: [
+                            "videos/pastoral1.mp4",  // Replace with your actual video file
+                            "videos/pastoral2.mp4",  // Replace with your actual video file
+                            "videos/pastoral3.mp4",  // Replace with your actual video file
+                            "videos/pastoral4.mp4",  // Replace with your actual video file
+                            "videos/pastoral5.mp4",  // Replace with your actual video file
+                            "videos/pastoral6.mp4",  // Replace with your actual video file
+                            "videos/pastoral7.mp4",  // Replace with your actual video file
+                            "videos/pastoral8.mp4"   // Replace with your actual video file
+                        ]
+                    }
+                ]
+            },
+            diploma: {
+                name: "Diploma Program",
+                courses: [
+                    { 
+                        id: 1, 
+                        name: "Advanced Bible Interpretation",
+                        progress: 0, 
+                        videos: 10, 
+                        completedVideos: 0,
+                        videoFiles: [
+                            "Video1.mp4",  // Replace with your actual video file
+                            "videos/diploma_adv_int2.mp4",  // Replace with your actual video file
+                            "diploma_adv_int2.mp4",  // Replace with your actual video file
+                            "videos/diploma_adv_int4.mp4",  // Replace with your actual video file
+                            "videos/diploma_adv_int5.mp4",  // Replace with your actual video file
+                            "videos/diploma_adv_int6.mp4",  // Replace with your actual video file
+                            "videos/diploma_adv_int7.mp4",  // Replace with your actual video file
+                            "videos/diploma_adv_int8.mp4",  // Replace with your actual video file
+                            "videos/diploma_adv_int9.mp4",  // Replace with your actual video file
+                            "videos/diploma_adv_int10.mp4"  // Replace with your actual video file
+                        ]
+                    },
+                    { 
+                        id: 2, 
+                        name: "Systematic Theology",
+                        progress: 0, 
+                        videos: 10, 
+                        completedVideos: 0,
+                        videoFiles: [
+                            "videos/diploma_theology1.mp4",  // Replace with your actual video file
+                            "videos/diploma_theology2.mp4",  // Replace with your actual video file
+                            "videos/diploma_theology3.mp4",  // Replace with your actual video file
+                            "videos/diploma_theology4.mp4",  // Replace with your actual video file
+                            "videos/diploma_theology5.mp4",  // Replace with your actual video file
+                            "videos/diploma_theology6.mp4",  // Replace with your actual video file
+                            "videos/diploma_theology7.mp4",  // Replace with your actual video file
+                            "videos/diploma_theology8.mp4",  // Replace with your actual video file
+                            "videos/diploma_theology9.mp4",  // Replace with your actual video file
+                            "videos/diploma_theology10.mp4"  // Replace with your actual video file
+                        ]
+                    },
+                    { 
+                        id: 3, 
+                        name: "Biblical Languages",
+                        progress: 0, 
+                        videos: 10, 
+                        completedVideos: 0,
+                        videoFiles: [
+                            "videos/diploma_lang1.mp4",  // Replace with your actual video file
+                            "videos/diploma_lang2.mp4",  // Replace with your actual video file
+                            "videos/diploma_lang3.mp4",  // Replace with your actual video file
+                            "videos/diploma_lang4.mp4",  // Replace with your actual video file
+                            "videos/diploma_lang5.mp4",  // Replace with your actual video file
+                            "videos/diploma_lang6.mp4",  // Replace with your actual video file
+                            "videos/diploma_lang7.mp4",  // Replace with your actual video file
+                            "videos/diploma_lang8.mp4",  // Replace with your actual video file
+                            "videos/diploma_lang9.mp4",  // Replace with your actual video file
+                            "videos/diploma_lang10.mp4"  // Replace with your actual video file
+                        ]
+                    },
+                    { 
+                        id: 4, 
+                        name: "Apologetics",
+                        progress: 0, 
+                        videos: 10, 
+                        completedVideos: 0,
+                        videoFiles: [
+                            "videos/diploma_apologetics1.mp4",  // Replace with your actual video file
+                            "videos/diploma_apologetics2.mp4",  // Replace with your actual video file
+                            "videos/diploma_apologetics3.mp4",  // Replace with your actual video file
+                            "videos/diploma_apologetics4.mp4",  // Replace with your actual video file
+                            "videos/diploma_apologetics5.mp4",  // Replace with your actual video file
+                            "videos/diploma_apologetics6.mp4",  // Replace with your actual video file
+                            "videos/diploma_apologetics7.mp4",  // Replace with your actual video file
+                            "videos/diploma_apologetics8.mp4",  // Replace with your actual video file
+                            "videos/diploma_apologetics9.mp4",  // Replace with your actual video file
+                            "videos/diploma_apologetics10.mp4"  // Replace with your actual video file
+                        ]
+                    },
+                    { 
+                        id: 5, 
+                        name: "Missions and Evangelism",
+                        progress: 0, 
+                        videos: 10, 
+                        completedVideos: 0,
+                        videoFiles: [
+                            "videos/diploma_missions1.mp4",  // Replace with your actual video file
+                            "videos/diploma_missions2.mp4",  // Replace with your actual video file
+                            "videos/diploma_missions3.mp4",  // Replace with your actual video file
+                            "videos/diploma_missions4.mp4",  // Replace with your actual video file
+                            "videos/diploma_missions5.mp4",  // Replace with your actual video file
+                            "videos/diploma_missions6.mp4",  // Replace with your actual video file
+                            "videos/diploma_missions7.mp4",  // Replace with your actual video file
+                            "videos/diploma_missions8.mp4",  // Replace with your actual video file
+                            "videos/diploma_missions9.mp4",  // Replace with your actual video file
+                            "videos/diploma_missions10.mp4"  // Replace with your actual video file
+                        ]
+                    },
+                    { 
+                        id: 6, 
+                        name: "Christian Counseling",
+                        progress: 0, 
+                        videos: 10, 
+                        completedVideos: 0,
+                        videoFiles: [
+                            "videos/diploma_counseling1.mp4",  // Replace with your actual video file
+                            "videos/diploma_counseling2.mp4",  // Replace with your actual video file
+                            "videos/diploma_counseling3.mp4",  // Replace with your actual video file
+                            "videos/diploma_counseling4.mp4",  // Replace with your actual video file
+                            "videos/diploma_counseling5.mp4",  // Replace with your actual video file
+                            "videos/diploma_counseling6.mp4",  // Replace with your actual video file
+                            "videos/diploma_counseling7.mp4",  // Replace with your actual video file
+                            "videos/diploma_counseling8.mp4",  // Replace with your actual video file
+                            "videos/diploma_counseling9.mp4",  // Replace with your actual video file
+                            "videos/diploma_counseling10.mp4"  // Replace with your actual video file
+                        ]
+                    },
+                    { 
+                        id: 7, 
+                        name: "Church Administration",
+                        progress: 0, 
+                        videos: 10, 
+                        completedVideos: 0,
+                        videoFiles: [
+                            "videos/diploma_admin1.mp4",  // Replace with your actual video file
+                            "videos/diploma_admin2.mp4",  // Replace with your actual video file
+                            "videos/diploma_admin3.mp4",  // Replace with your actual video file
+                            "videos/diploma_admin4.mp4",  // Replace with your actual video file
+                            "videos/diploma_admin5.mp4",  // Replace with your actual video file
+                            "videos/diploma_admin6.mp4",  // Replace with your actual video file
+                            "videos/diploma_admin7.mp4",  // Replace with your actual video file
+                            "videos/diploma_admin8.mp4",  // Replace with your actual video file
+                            "videos/diploma_admin9.mp4",  // Replace with your actual video file
+                            "videos/diploma_admin10.mp4"  // Replace with your actual video file
+                        ]
+                    },
+                    { 
+                        id: 8, 
+                        name: "Worship Ministry",
+                        progress: 0, 
+                        videos: 10, 
+                        completedVideos: 0,
+                        videoFiles: [
+                            "videos/diploma_worship1.mp4",  // Replace with your actual video file
+                            "videos/diploma_worship2.mp4",  // Replace with your actual video file
+                            "videos/diploma_worship3.mp4",  // Replace with your actual video file
+                            "videos/diploma_worship4.mp4",  // Replace with your actual video file
+                            "videos/diploma_worship5.mp4",  // Replace with your actual video file
+                            "videos/diploma_worship6.mp4",  // Replace with your actual video file
+                            "videos/diploma_worship7.mp4",  // Replace with your actual video file
+                            "videos/diploma_worship8.mp4",  // Replace with your actual video file
+                            "videos/diploma_worship9.mp4",  // Replace with your actual video file
+                            "videos/diploma_worship10.mp4"  // Replace with your actual video file
+                        ]
+                    },
+                    { 
+                        id: 9, 
+                        name: "Youth Ministry",
+                        progress: 0, 
+                        videos: 10, 
+                        completedVideos: 0,
+                        videoFiles: [
+                            "videos/diploma_youth1.mp4",  // Replace with your actual video file
+                            "videos/diploma_youth2.mp4",  // Replace with your actual video file
+                            "videos/diploma_youth3.mp4",  // Replace with your actual video file
+                            "videos/diploma_youth4.mp4",  // Replace with your actual video file
+                            "videos/diploma_youth5.mp4",  // Replace with your actual video file
+                            "videos/diploma_youth6.mp4",  // Replace with your actual video file
+                            "videos/diploma_youth7.mp4",  // Replace with your actual video file
+                            "videos/diploma_youth8.mp4",  // Replace with your actual video file
+                            "videos/diploma_youth9.mp4",  // Replace with your actual video file
+                            "videos/diploma_youth10.mp4"  // Replace with your actual video file
+                        ]
+                    },
+                    { 
+                        id: 10, 
+                        name: "Leadership Development",
+                        progress: 0, 
+                        videos: 10, 
+                        completedVideos: 0,
+                        videoFiles: [
+                            "videos/diploma_leadership1.mp4",  // Replace with your actual video file
+                            "videos/diploma_leadership2.mp4",  // Replace with your actual video file
+                            "videos/diploma_leadership3.mp4",  // Replace with your actual video file
+                            "videos/diploma_leadership4.mp4",  // Replace with your actual video file
+                            "videos/diploma_leadership5.mp4",  // Replace with your actual video file
+                            "videos/diploma_leadership6.mp4",  // Replace with your actual video file
+                            "videos/diploma_leadership7.mp4",  // Replace with your actual video file
+                            "videos/diploma_leadership8.mp4",  // Replace with your actual video file
+                            "videos/diploma_leadership9.mp4",  // Replace with your actual video file
+                            "videos/diploma_leadership10.mp4"  // Replace with your actual video file
+                        ]
+                    }
+                ]
+            },
+            phd: {
+                name: "PhD Advance Program",
+                courses: [
+                    { 
+                        id: 1, 
+                        name: "Advanced Theological Research",
+                        progress: 0, 
+                        videos: 12, 
+                        completedVideos: 0,
+                        videoFiles: [
+                            "videos/phd_research1.mp4",  // Replace with your actual video file
+                            "videos/phd_research2.mp4",  // Replace with your actual video file
+                            "videos/phd_research3.mp4",  // Replace with your actual video file
+                            "videos/phd_research4.mp4",  // Replace with your actual video file
+                            "videos/phd_research5.mp4",  // Replace with your actual video file
+                            "videos/phd_research6.mp4",  // Replace with your actual video file
+                            "videos/phd_research7.mp4",  // Replace with your actual video file
+                            "videos/phd_research8.mp4",  // Replace with your actual video file
+                            "videos/phd_research9.mp4",  // Replace with your actual video file
+                            "videos/phd_research10.mp4", // Replace with your actual video file
+                            "videos/phd_research11.mp4", // Replace with your actual video file
+                            "videos/phd_research12.mp4"  // Replace with your actual video file
+                        ]
+                    },
+                    { 
+                        id: 2, 
+                        name: "Biblical Hermeneutics",
+                        progress: 0, 
+                        videos: 12, 
+                        completedVideos: 0,
+                        videoFiles: [
+                            "videos/phd_hermeneutics1.mp4",  // Replace with your actual video file
+                            "videos/phd_hermeneutics2.mp4",  // Replace with your actual video file
+                            "videos/phd_hermeneutics3.mp4",  // Replace with your actual video file
+                            "videos/phd_hermeneutics4.mp4",  // Replace with your actual video file
+                            "videos/phd_hermeneutics5.mp4",  // Replace with your actual video file
+                            "videos/phd_hermeneutics6.mp4",  // Replace with your actual video file
+                            "videos/phd_hermeneutics7.mp4",  // Replace with your actual video file
+                            "videos/phd_hermeneutics8.mp4",  // Replace with your actual video file
+                            "videos/phd_hermeneutics9.mp4",  // Replace with your actual video file
+                            "videos/phd_hermeneutics10.mp4", // Replace with your actual video file
+                            "videos/phd_hermeneutics11.mp4", // Replace with your actual video file
+                            "videos/phd_hermeneutics12.mp4"  // Replace with your actual video file
+                        ]
+                    },
+                    { 
+                        id: 3, 
+                        name: "Contemporary Theological Issues",
+                        progress: 0, 
+                        videos: 12, 
+                        completedVideos: 0,
+                        videoFiles: [
+                            "videos/phd_issues1.mp4",  // Replace with your actual video file
+                            "videos/phd_issues2.mp4",  // Replace with your actual video file
+                            "videos/phd_issues3.mp4",  // Replace with your actual video file
+                            "videos/phd_issues4.mp4",  // Replace with your actual video file
+                            "videos/phd_issues5.mp4",  // Replace with your actual video file
+                            "videos/phd_issues6.mp4",  // Replace with your actual video file
+                            "videos/phd_issues7.mp4",  // Replace with your actual video file
+                            "videos/phd_issues8.mp4",  // Replace with your actual video file
+                            "videos/phd_issues9.mp4",  // Replace with your actual video file
+                            "videos/phd_issues10.mp4", // Replace with your actual video file
+                            "videos/phd_issues11.mp4", // Replace with your actual video file
+                            "videos/phd_issues12.mp4"  // Replace with your actual video file
+                        ]
+                    },
+                    { 
+                        id: 4, 
+                        name: "Advanced Church History",
+                        progress: 0, 
+                        videos: 12, 
+                        completedVideos: 0,
+                        videoFiles: [
+                            "videos/phd_history1.mp4",  // Replace with your actual video file
+                            "videos/phd_history2.mp4",  // Replace with your actual video file
+                            "videos/phd_history3.mp4",  // Replace with your actual video file
+                            "videos/phd_history4.mp4",  // Replace with your actual video file
+                            "videos/phd_history5.mp4",  // Replace with your actual video file
+                            "videos/phd_history6.mp4",  // Replace with your actual video file
+                            "videos/phd_history7.mp4",  // Replace with your actual video file
+                            "videos/phd_history8.mp4",  // Replace with your actual video file
+                            "videos/phd_history9.mp4",  // Replace with your actual video file
+                            "videos/phd_history10.mp4", // Replace with your actual video file
+                            "videos/phd_history11.mp4", // Replace with your actual video file
+                            "videos/phd_history12.mp4"  // Replace with your actual video file
+                        ]
+                    },
+                    { 
+                        id: 5, 
+                        name: "Theology of Ministry",
+                        progress: 0, 
+                        videos: 12, 
+                        completedVideos: 0,
+                        videoFiles: [
+                            "videos/phd_ministry1.mp4",  // Replace with your actual video file
+                            "videos/phd_ministry2.mp4",  // Replace with your actual video file
+                            "videos/phd_ministry3.mp4",  // Replace with your actual video file
+                            "videos/phd_ministry4.mp4",  // Replace with your actual video file
+                            "videos/phd_ministry5.mp4",  // Replace with your actual video file
+                            "videos/phd_ministry6.mp4",  // Replace with your actual video file
+                            "videos/phd_ministry7.mp4",  // Replace with your actual video file
+                            "videos/phd_ministry8.mp4",  // Replace with your actual video file
+                            "videos/phd_ministry9.mp4",  // Replace with your actual video file
+                            "videos/phd_ministry10.mp4", // Replace with your actual video file
+                            "videos/phd_ministry11.mp4", // Replace with your actual video file
+                            "videos/phd_ministry12.mp4"  // Replace with your actual video file
+                        ]
+                    },
+                    { 
+                        id: 6, 
+                        name: "Advanced Pastoral Theology",
+                        progress: 0, 
+                        videos: 12, 
+                        completedVideos: 0,
+                        videoFiles: [
+                            "videos/phd_pastoral1.mp4",  // Replace with your actual video file
+                            "videos/phd_pastoral2.mp4",  // Replace with your actual video file
+                            "videos/phd_pastoral3.mp4",  // Replace with your actual video file
+                            "videos/phd_pastoral4.mp4",  // Replace with your actual video file
+                            "videos/phd_pastoral5.mp4",  // Replace with your actual video file
+                            "videos/phd_pastoral6.mp4",  // Replace with your actual video file
+                            "videos/phd_pastoral7.mp4",  // Replace with your actual video file
+                            "videos/phd_pastoral8.mp4",  // Replace with your actual video file
+                            "videos/phd_pastoral9.mp4",  // Replace with your actual video file
+                            "videos/phd_pastoral10.mp4", // Replace with your actual video file
+                            "videos/phd_pastoral11.mp4", // Replace with your actual video file
+                            "videos/phd_pastoral12.mp4"  // Replace with your actual video file
+                        ]
+                    }
+                ]
+            }
+        };
+
+        // ===== COMPREHENSIVE QUESTION BANK =====
+        // (All question data from previous implementation remains here)
+        // For brevity, I'm keeping the structure but not repeating all questions
+        
+        const quizData = {
+            // Certificate Program Questions (8 courses with 5 questions each)
+            1: [
+                { question: "What does the acronym 'OIA' stand for in Bible study methodology?", options: ["Observation, Interpretation, Application", "Organization, Investigation, Analysis", "Overview, Inspection, Action", "Observation, Inspiration, Action"], correct: 0 },
+                { question: "Which of these is NOT considered a biblical genre?", options: ["Historical Narrative", "Poetry", "Scientific Textbook", "Epistle"], correct: 2 },
+                { question: "What is the primary purpose of understanding historical context in Bible study?", options: ["To make the Bible more interesting", "To understand the original author's intended meaning", "To prove the Bible is historically accurate", "To find hidden codes and prophecies"], correct: 1 },
+                { question: "Which tool is most essential for conducting word studies in biblical languages?", options: ["Concordance", "Modern English Dictionary", "Science Textbook", "Historical Fiction"], correct: 0 },
+                { question: "What is the definition of hermeneutics?", options: ["The science and art of biblical interpretation", "The study of end-times prophecy", "The practice of memorizing Scripture", "The art of public speaking and preaching"], correct: 0 }
+            ],
+            2: [
+                { question: "How many books are contained in the Old Testament?", options: ["27", "39", "66", "50"], correct: 1 },
+                { question: "Which book is considered the first book of the Bible?", options: ["Exodus", "Genesis", "John", "Psalms"], correct: 1 },
+                { question: "Who was called 'the father of many nations' in the Old Testament?", options: ["Moses", "Abraham", "David", "Isaiah"], correct: 1 },
+                { question: "Which prophet was famously swallowed by a great fish?", options: ["Jeremiah", "Elijah", "Jonah", "Ezekiel"], correct: 2 },
+                { question: "What are the first five books of the Bible collectively called?", options: ["The Historical Books", "The Pentateuch", "The Gospels", "The Wisdom Literature"], correct: 1 }
+            ],
+            // Add remaining courses 3-8 here...
+            3: [
+                { question: "How many books are contained in the New Testament?", options: ["27", "39", "66", "50"], correct: 0 },
+                { question: "Which Gospel was written by a physician?", options: ["Matthew", "Mark", "Luke", "John"], correct: 2 },
+                { question: "Who wrote the majority of the New Testament epistles?", options: ["Peter", "John", "Paul", "James"], correct: 2 },
+                { question: "What major event is described in the Book of Acts?", options: ["The creation of the world", "The early church and apostles' ministry", "The end times prophecy", "The life of Jesus"], correct: 1 },
+                { question: "Which book contains apocalyptic visions of the end times?", options: ["Romans", "Revelation", "Hebrews", "Jude"], correct: 1 }
+            ],
+            4: [
+                { question: "What is the doctrine of the Trinity?", options: ["Belief in three separate gods", "One God in three persons: Father, Son, Holy Spirit", "The third coming of Christ", "Three levels of heaven"], correct: 1 },
+                { question: "What does the doctrine of salvation emphasize?", options: ["Self-improvement through good works", "Redemption through Christ's sacrifice", "Universal salvation for all people", "Salvation through church membership"], correct: 1 },
+                { question: "Which doctrine specifically concerns the return of Christ?", options: ["Eschatology", "Soteriology", "Pneumatology", "Christology"], correct: 0 },
+                { question: "What is the biblical view of humanity?", options: ["Humans are basically good without sin", "Created in God's image but fallen in sin", "Humans are divine beings", "Humans are merely biological machines"], correct: 1 },
+                { question: "Which doctrine specifically studies the person and work of Christ?", options: ["Ecclesiology", "Christology", "Eschatology", "Anthropology"], correct: 1 }
+            ],
+            5: [
+                { question: "When did the Protestant Reformation begin?", options: ["5th century", "16th century", "1st century", "19th century"], correct: 1 },
+                { question: "Who is famously known for posting the 95 Theses?", options: ["John Calvin", "Martin Luther", "John Wesley", "Ulrich Zwingli"], correct: 1 },
+                { question: "Which early church council established the Nicene Creed?", options: ["Council of Trent", "First Council of Nicaea", "Council of Jerusalem", "Vatican II"], correct: 1 },
+                { question: "What was the Great Awakening?", options: ["A period of religious revival in America", "The resurrection of Jesus", "The enlightenment period", "The establishment of the Catholic Church"], correct: 0 },
+                { question: "Who is considered the 'Apostle to the Gentiles' in the early church?", options: ["Peter", "Paul", "John", "James"], correct: 1 }
+            ],
+            6: [
+                { question: "What is the foundation of Christian ethics?", options: ["Cultural norms and traditions", "Personal preferences and feelings", "Biblical principles and commands", "Philosophical reasoning alone"], correct: 2 },
+                { question: "Which commandment did Jesus say summarizes all the law?", options: ["Love your neighbor as yourself", "Do not steal", "Remember the Sabbath", "You shall have no other gods"], correct: 0 },
+                { question: "What is the Christian view of justice?", options: ["Punishment for all wrongs", "Fair treatment and righteousness", "Ignoring minor offenses", "Wealth redistribution"], correct: 1 },
+                { question: "How should Christians approach ethical dilemmas?", options: ["Follow majority opinion", "Through prayer and biblical guidance", "Based on personal convenience", "According to government regulations"], correct: 1 },
+                { question: "What is the role of conscience in Christian ethics?", options: ["It is the final authority in decision making", "It should be guided and informed by Scripture", "It should be ignored in favor of rules", "It replaces the need for biblical commands"], correct: 1 }
+            ],
+            7: [
+                { question: "What is the definition of homiletics?", options: ["The study of church history", "The art and science of preaching", "The study of end times", "The practice of prayer"], correct: 1 },
+                { question: "What is the most important element of an effective sermon?", options: ["Entertaining stories and illustrations", "Biblical truth and practical application", "Length of delivery", "Oratorical skills and presentation"], correct: 1 },
+                { question: "Which preaching style focuses on explaining Scripture verse by verse?", options: ["Topical preaching", "Expository preaching", "Narrative preaching", "Evangelistic preaching"], correct: 1 },
+                { question: "What should precede the preparation of any sermon?", options: ["Research on current events", "Prayer and meditation on Scripture", "Consulting popular books", "Watching other preachers"], correct: 1 },
+                { question: "What is the primary purpose of application in preaching?", options: ["To entertain the congregation", "To help listeners live out biblical truth", "To demonstrate the preacher's knowledge", "To fill time in the sermon"], correct: 1 }
+            ],
+            8: [
+                { question: "What is the primary role of a pastor according to Scripture?", options: ["Church administrator", "Spiritual shepherd and teacher", "Community organizer", "Public speaker"], correct: 1 },
+                { question: "Which quality is most essential for pastoral ministry?", options: ["Organizational skills", "Character and spiritual maturity", "Public speaking ability", "Academic credentials"], correct: 1 },
+                { question: "What does pastoral care primarily involve?", options: ["Only preaching on Sundays", "Spiritual guidance and support for congregation", "Managing church finances", "Organizing social events"], correct: 1 },
+                { question: "How should a pastor biblically handle church conflicts?", options: ["Avoid them completely", "With wisdom, prayer, and biblical principles", "Take sides immediately", "Delegate to church board entirely"], correct: 1 },
+                { question: "What is the biblical model for church leadership?", options: ["Democratic voting on all matters", "Servant leadership following Christ's example", "Authoritarian control", "Laissez-faire approach"], correct: 1 }
+            ]
+        };
+
+        const diplomaQuizData = {
+            9: [
+                { question: "What is the grammatical-historical method of interpretation?", options: ["Interpreting based on personal feelings", "Understanding text in its original grammatical and historical context", "Finding hidden spiritual meanings only", "Applying modern cultural standards to the text"], correct: 1 },
+                { question: "What is typology in biblical interpretation?", options: ["Studying different Bible translations", "Finding Christ and gospel patterns in Old Testament", "Categorizing biblical books by genre", "Analyzing Greek and Hebrew grammar"], correct: 1 },
+                { question: "Which principle is most important for interpreting prophetic literature?", options: ["Always interpret literally", "Understand symbolic language and historical context", "Ignore historical context for spiritual meaning", "Apply directly to modern politics"], correct: 1 },
+                { question: "What is the role of context in proper interpretation?", options: ["It limits personal application", "It determines the original meaning", "It is unimportant for spiritual truth", "It only matters for Old Testament"], correct: 1 },
+                { question: "How should we interpret biblical narrative?", options: ["As moral lessons only", "As theological history with purpose", "As fictional stories with meaning", "As direct commands for today"], correct: 1 }
+            ],
+            10: [
+                { question: "What is systematic theology?", options: ["Random collection of Bible verses", "Organized study of biblical doctrines", "Study of church history only", "Philosophical speculation about God"], correct: 1 },
+                { question: "Which doctrine specifically studies the work of the Holy Spirit?", options: ["Pneumatology", "Christology", "Soteriology", "Ecclesiology"], correct: 0 },
+                { question: "What is the doctrine of sanctification?", options: ["Being set apart for God's purposes", "The process of becoming holy", "Initial salvation experience", "The study of angels"], correct: 1 },
+                { question: "Which theological system emphasizes God's sovereignty in salvation?", options: ["Arminianism", "Calvinism", "Pelagianism", "Socinianism"], correct: 1 },
+                { question: "What is biblical anthropology?", options: ["Study of ancient cultures", "Doctrine of humanity", "Study of church growth", "Analysis of biblical languages"], correct: 1 }
+            ],
+            11: [
+                { question: "What are the original languages of the Bible?", options: ["Hebrew, Aramaic, and Greek", "Latin, Greek, and Hebrew", "English, Greek, and Hebrew", "Aramaic, Latin, and Greek"], correct: 0 },
+                { question: "What is the primary value of studying biblical languages?", options: ["Understanding nuances lost in translation", "Impressing others with knowledge", "Replacing the need for English Bibles", "Correcting biblical errors"], correct: 0 },
+                { question: "Which testament was primarily written in Hebrew?", options: ["New Testament", "Old Testament", "Both testaments", "Neither testament"], correct: 1 },
+                { question: "What is exegesis?", options: ["Drawing meaning out of the text", "Reading meaning into the text", "Memorizing Scripture", "Preaching from the text"], correct: 0 },
+                { question: "Why is Koine Greek important for New Testament study?", options: ["It reveals precise meanings of words", "It makes reading more difficult", "It is the language Jesus spoke", "It is easier than English"], correct: 0 }
+            ],
+            12: [
+                { question: "What is Christian apologetics?", options: ["Defending the Christian faith", "Apologizing for Christian beliefs", "Criticizing other religions", "Debating theological points"], correct: 0 },
+                { question: "Which apologetic method uses evidence and reason?", options: ["Classical apologetics", "Presuppositional apologetics", "Fideism", "Experiential apologetics"], correct: 0 },
+                { question: "What is the cosmological argument for God's existence?", options: ["Argument from design in creation", "Argument from first cause", "Argument from moral law", "Argument from religious experience"], correct: 1 },
+                { question: "How should apologetics be conducted according to 1 Peter 3:15?", options: ["With gentleness and respect", "With forceful arguments", "With academic superiority", "With emotional appeals only"], correct: 0 },
+                { question: "What is the role of the Holy Spirit in apologetics?", options: ["To convince people of truth", "To provide all answers", "To replace study and preparation", "To make arguments unnecessary"], correct: 0 }
+            ],
+            13: [
+                { question: "What is the Great Commission?", options: ["Jesus' command to make disciples", "The commission to build churches", "The call to social justice", "The mandate for political involvement"], correct: 0 },
+                { question: "What is the difference between missions and evangelism?", options: ["Missions is cross-cultural, evangelism is local", "Missions is for professionals only", "Evangelism is only for pastors", "There is no difference"], correct: 0 },
+                { question: "What is contextualization in missions?", options: ["Presenting gospel in culturally relevant ways", "Changing gospel message for culture", "Abandoning biblical truth for relevance", "Using only traditional methods"], correct: 0 },
+                { question: "What is the ultimate goal of missions?", options: ["Making disciples of all nations", "Building large churches", "Eliminating poverty", "Creating Christian nations"], correct: 0 },
+                { question: "How should missionaries approach cultural differences?", options: ["Respect culture while maintaining biblical truth", "Impose Western culture", "Abandon all cultural practices", "Ignore cultural differences"], correct: 0 }
+            ]
+        };
+
+        const phdQuizData = {
+            17: [
+                { question: "What is the first step in proper theological research?", options: ["Formulating a clear research question", "Gathering secondary sources", "Choosing a research method", "Writing the introduction"], correct: 0 },
+                { question: "Which research method focuses primarily on historical context?", options: ["Historical-critical method", "Literary analysis", "Systematic theology", "Practical theology"], correct: 0 },
+                { question: "What constitutes a primary source in theological research?", options: ["Original biblical texts and early documents", "Modern Bible commentaries", "Theological textbooks", "Sermon recordings"], correct: 0 },
+                { question: "How should researchers handle conflicting interpretations?", options: ["Ignore opposing views", "Engage critically with evidence", "Choose the most popular view", "Dismiss older interpretations"], correct: 1 },
+                { question: "What is the role of hermeneutics in theological research?", options: ["Providing interpretive framework", "Replacing exegetical work", "Simplifying complex texts", "Creating new biblical meanings"], correct: 0 }
+            ],
+            18: [
+                { question: "What is the historical-grammatical method of interpretation?", options: ["Interpreting based on author's intended meaning", "Finding hidden spiritual meanings", "Applying modern sensibilities to text", "Ignoring historical context"], correct: 0 },
+                { question: "Which hermeneutical principle emphasizes Scripture interpreting Scripture?", options: ["Analogy of Faith", "Historical Criticism", "Reader-Response Theory", "Deconstructionism"], correct: 0 },
+                { question: "What is the role of the Holy Spirit in interpretation?", options: ["Replacing careful study", "Illuminating the meaning of Scripture", "Providing new revelations", "Correcting biblical errors"], correct: 1 },
+                { question: "How should we interpret apocalyptic literature?", options: ["Always literally", "Understanding symbolic nature", "As science fiction", "As political commentary only"], correct: 1 },
+                { question: "What is the fundamental difference between exegesis and eisegesis?", options: ["Drawing out vs. reading into the text", "Old vs. New Testament methods", "Protestant vs. Catholic approaches", "Academic vs. devotional study"], correct: 0 }
+            ],
+            19: [
+                { question: "How should the church engage with postmodernism?", options: ["With critical engagement and biblical truth", "Complete acceptance", "Total rejection", "Ignoring its influence"], correct: 0 },
+                { question: "What is the biblical response to religious pluralism?", options: ["Affirming Christ as the only way", "Accepting all religions as equal", "Rejecting dialogue with other faiths", "Creating a unified world religion"], correct: 0 },
+                { question: "How should Christians approach science and faith issues?", options: ["Seeing science as exploring God's creation", "Seeing science as enemy of faith", "Rejecting all scientific findings", "Replacing faith with science"], correct: 0 },
+                { question: "What is the biblical view of gender and sexuality?", options: ["Created male and female in God's image", "Gender is a social construct only", "All sexual expressions are equal", "Biological sex doesn't matter"], correct: 0 },
+                { question: "How should the church address social justice issues?", options: ["Through biblical justice and compassion", "Through political activism only", "By ignoring social issues", "By conforming to cultural trends"], correct: 0 }
+            ]
+        };
+
+        const examData = {
+            certificate: [
+                { question: "What is the primary purpose of the Bible according to 2 Timothy 3:16-17?", options: ["To provide historical information", "To teach, rebuke, correct and train in righteousness", "To predict future events", "To establish religious rituals"], correct: 1 },
+                { question: "Who is the central figure of the entire Bible?", options: ["Moses", "Paul", "Jesus Christ", "Abraham"], correct: 2 },
+                { question: "What is the Great Commission given by Jesus?", options: ["To build large churches", "To make disciples of all nations", "To establish Christian governments", "To write more scriptures"], correct: 1 },
+                { question: "What are the two greatest commandments according to Jesus?", options: ["Love God and love your neighbor", "Keep the Sabbath and honor parents", "Do not steal and do not lie", "Pray always and give tithes"], correct: 0 },
+                { question: "What is the foundation of Christian faith?", options: ["Good works and moral living", "The resurrection of Jesus Christ", "Church membership and rituals", "Biblical knowledge and education"], correct: 1 },
+                { question: "What does justification mean in Christian theology?", options: ["Being made right with God through faith", "Proving oneself worthy through works", "Understanding complex doctrines", "Participating in religious activities"], correct: 0 },
+                { question: "What is the role of the Holy Spirit in a believer's life?", options: ["Comforter, guide, and teacher", "Only for spiritual gifts", "Replacement for Scripture", "Source of mystical experiences"], correct: 0 },
+                { question: "What is the biblical view of the church?", options: ["The body of Christ and community of believers", "A building for religious services", "An organization for social reform", "A place for perfect people only"], correct: 0 },
+                { question: "How should Christians approach suffering according to Scripture?", options: ["As punishment for sin", "As opportunity for spiritual growth", "As evidence of God's absence", "As something to always avoid"], correct: 1 },
+                { question: "What is the Christian hope based on?", options: ["World peace and prosperity", "Eternal life through Jesus Christ", "Personal achievement and success", "Scientific progress and discovery"], correct: 1 }
+            ],
+            diploma: [
+                { question: "What is the relationship between Old and New Testaments?", options: ["Promise and fulfillment", "Two separate religions", "Contradictory messages", "Identical teachings"], correct: 0 },
+                { question: "What is covenant theology?", options: ["Understanding Bible through God's covenants", "Study of church agreements", "Legalistic interpretation of Scripture", "Focus on Ten Commandments only"], correct: 0 },
+                { question: "What is biblical theology?", options: ["Tracking themes through biblical history", "Systematic organization of doctrines", "Study of religious experiences", "Analysis of church traditions"], correct: 0 },
+                { question: "What is the doctrine of the perspicuity of Scripture?", options: ["The clarity of Scripture in salvation matters", "The difficulty of understanding Scripture", "The need for priestly interpretation", "The hidden meanings in Scripture"], correct: 0 },
+                { question: "What is the relationship between law and gospel?", options: ["Law reveals sin, gospel reveals Savior", "Law replaces gospel in NT", "Gospel cancels all law", "They are contradictory"], correct: 0 },
+                { question: "What is the role of tradition in interpretation?", options: ["Helpful but subordinate to Scripture", "Equal authority with Scripture", "No value for interpretation", "Primary authority over Scripture"], correct: 0 },
+                { question: "What is the biblical basis for missions?", options: ["God's heart for all nations", "Cultural imperialism", "Church growth strategy", "Political influence"], correct: 0 },
+                { question: "How should we interpret difficult passages?", options: ["In light of clearer passages", "Ignore them as errors", "Create new doctrines from them", "Accept all interpretations as valid"], correct: 0 },
+                { question: "What is the relationship between faith and reason?", options: ["Complementary gifts from God", "Contradictory approaches", "Reason superior to faith", "Faith opposed to reason"], correct: 0 },
+                { question: "What is the ultimate authority for Christian faith and practice?", options: ["The Bible alone", "Church tradition alone", "Personal experience alone", "Cultural norms alone"], correct: 0 }
+            ],
+            phd: [
+                { question: "What is the role of tradition in biblical interpretation?", options: ["Helpful but subordinate to Scripture", "Equal authority with Scripture", "No value for interpretation", "Replacement for personal study"], correct: 0 },
+                { question: "How should we approach apparent biblical contradictions?", options: ["Careful study of context and language", "Dismissing them as errors", "Choosing one version arbitrarily", "Ignoring them completely"], correct: 0 },
+                { question: "What is the relationship between faith and reason?", options: ["Complementary gifts from God", "Contradictory approaches", "Reason superior to faith", "Faith opposed to reason"], correct: 0 },
+                { question: "How should theology engage with culture?", options: ["Critically and redemptively", "Complete accommodation", "Total separation", "Uncritical acceptance"], correct: 0 },
+                { question: "What is the role of experience in theology?", options: ["Tested by Scripture", "Final authority", "Irrelevant to theology", "Replaces Scripture"], correct: 0 },
+                { question: "How should we handle theological diversity?", options: ["With charity on non-essentials", "By creating new denominations", "By forcing uniformity", "By ignoring differences"], correct: 0 },
+                { question: "What is the relationship between theology and practice?", options: ["Theology should inform practice", "They are separate domains", "Practice determines theology", "They are unrelated"], correct: 0 },
+                { question: "How should we approach biblical authority today?", options: ["As relevant and transformative", "As ancient and irrelevant", "As one voice among many", "As primarily cultural"], correct: 0 },
+                { question: "What is the goal of theological education?", options: ["Forming Christlike servants", "Academic knowledge only", "Professional advancement", "Personal enlightenment"], correct: 0 },
+                { question: "How should theology address contemporary issues?", options: ["With biblical wisdom and relevance", "By avoiding contemporary issues", "By conforming to culture", "By repeating traditional answers only"], correct: 0 }
+            ]
+        };
+
+        // Study materials for each video
+        const videoMaterials = {
+            1: `<h3>Introduction to Bible Study - Video 1</h3><p>This foundational course provides essential knowledge for effective Bible study. You will learn various methods of Bible study, how to interpret different genres of biblical literature, and principles for applying Scripture to life.</p>`,
+            2: `<h3>Introduction to Bible Study - Video 2</h3><p>Learn the importance of historical and cultural context in biblical interpretation.</p>`,
+            3: `<h3>Introduction to Bible Study - Video 3</h3><p>Understanding different biblical genres and their interpretation methods.</p>`,
+            4: `<h3>Introduction to Bible Study - Video 4</h3><p>Develop skills for word studies and using cross-references.</p>`,
+            5: `<h3>Introduction to Bible Study - Video 5</h3><p>Learn how to apply Scripture appropriately to contemporary life.</p>`,
+            6: `<h3>Introduction to Bible Study - Video 6</h3><p>Practical exercises in Bible study methods.</p>`,
+            7: `<h3>Introduction to Bible Study - Video 7</h3><p>Common mistakes in Bible interpretation and how to avoid them.</p>`,
+            8: `<h3>Introduction to Bible Study - Video 8</h3><p>Developing a consistent Bible study habit and spiritual growth.</p>`
+        };
+
+        // ===== LOCAL STORAGE FUNCTIONS =====
+        
+        function saveUserData() {
+            if (currentUser) {
+                const userData = {
+                    user: currentUser,
+                    categories: categories,
+                    attendance: getStoredAttendance()
+                };
+                localStorage.setItem('pibcUserData', JSON.stringify(userData));
+            }
+        }
+        
+        function loadUserData() {
+            const storedData = localStorage.getItem('pibcUserData');
+            if (storedData) {
+                const userData = JSON.parse(storedData);
+                currentUser = userData.user;
+                
+                for (const category in userData.categories) {
+                    if (categories[category]) {
+                        categories[category].courses = userData.categories[category].courses;
+                    }
+                }
+                
+                return true;
+            }
+            return false;
+        }
+        
+        function getStoredAttendance() {
+            const storedData = localStorage.getItem('pibcUserData');
+            if (storedData) {
+                const userData = JSON.parse(storedData);
+                return userData.attendance || {};
+            }
+            return {};
+        }
+        
+        function saveAttendance(attendance) {
+            const storedData = localStorage.getItem('pibcUserData');
+            if (storedData) {
+                const userData = JSON.parse(storedData);
+                userData.attendance = attendance;
+                localStorage.setItem('pibcUserData', JSON.stringify(userData));
+            }
+        }
+
+        // ===== VIDEO PLAYER FUNCTIONS =====
+        
+        /**
+         * Creates and initializes the HTML5 video player
+         * @param {string} videoSrc - The source URL of the video file
+         */
+        function initializeVideoPlayer(videoSrc) {
+            const videoWrapper = document.getElementById('videoPlayerWrapper');
+            videoWrapper.innerHTML = '';
+            
+            // Create video element
+            const videoElement = document.createElement('video');
+            videoElement.id = 'courseVideoPlayer';
+            videoElement.className = 'video-player-element';
+            videoElement.controls = true;
+            videoElement.preload = 'metadata';
+            
+            // Create source element
+            const sourceElement = document.createElement('source');
+            sourceElement.src = videoSrc;
+            sourceElement.type = 'video/mp4';
+            
+            // Add fallback message
+            const fallbackMessage = document.createElement('p');
+            fallbackMessage.textContent = 'Your browser does not support the video tag.';
+            fallbackMessage.style.color = 'white';
+            fallbackMessage.style.padding = '20px';
+            fallbackMessage.style.textAlign = 'center';
+            
+            // Assemble video player
+            videoElement.appendChild(sourceElement);
+            videoElement.appendChild(fallbackMessage);
+            
+            // Create custom controls
+            const controlsDiv = document.createElement('div');
+            controlsDiv.className = 'video-controls';
+            
+            // Play/Pause button
+            const playBtn = document.createElement('button');
+            playBtn.className = 'video-control-btn';
+            playBtn.innerHTML = '<i class="fas fa-play"></i>';
+            playBtn.onclick = () => {
+                if (videoElement.paused) {
+                    videoElement.play();
+                    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                    startVideoProgressTracking();
+                } else {
+                    videoElement.pause();
+                    playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                    stopVideoProgressTracking();
+                }
+            };
+            
+            // Progress bar
+            const progressDiv = document.createElement('div');
+            progressDiv.className = 'video-progress';
+            const progressFilled = document.createElement('div');
+            progressFilled.className = 'video-progress-filled';
+            progressDiv.appendChild(progressFilled);
+            
+            progressDiv.onclick = (e) => {
+                const rect = progressDiv.getBoundingClientRect();
+                const pos = (e.clientX - rect.left) / rect.width;
+                videoElement.currentTime = pos * videoElement.duration;
+            };
+            
+            // Time display
+            const timeDisplay = document.createElement('div');
+            timeDisplay.className = 'video-time';
+            timeDisplay.textContent = '0:00 / 0:00';
+            
+            // Fullscreen button
+            const fullscreenBtn = document.createElement('button');
+            fullscreenBtn.className = 'video-control-btn';
+            fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+            fullscreenBtn.onclick = () => {
+                if (videoElement.requestFullscreen) {
+                    videoElement.requestFullscreen();
+                }
+            };
+            
+            // Assemble controls
+            controlsDiv.appendChild(playBtn);
+            controlsDiv.appendChild(progressDiv);
+            controlsDiv.appendChild(timeDisplay);
+            controlsDiv.appendChild(fullscreenBtn);
+            
+            // Add event listeners to video
+            videoElement.addEventListener('play', () => {
+                playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                startVideoProgressTracking();
+            });
+            
+            videoElement.addEventListener('pause', () => {
+                playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                stopVideoProgressTracking();
+            });
+            
+            videoElement.addEventListener('timeupdate', () => {
+                updateVideoProgress(videoElement, progressFilled, timeDisplay);
+                
+                // Auto-mark as completed when video reaches 95%
+                if (videoElement.currentTime / videoElement.duration > 0.95) {
+                    markVideoAsWatched();
+                }
+            });
+            
+            videoElement.addEventListener('loadedmetadata', () => {
+                updateVideoProgress(videoElement, progressFilled, timeDisplay);
+            });
+            
+            videoElement.addEventListener('ended', () => {
+                playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                stopVideoProgressTracking();
+                markVideoAsWatched();
+                showNotification('Video completed! You can now study the material and take the quiz.');
+            });
+            
+            // Assemble everything
+            videoWrapper.appendChild(videoElement);
+            videoWrapper.appendChild(controlsDiv);
+            
+            // Store reference to video player
+            videoPlayer = videoElement;
+            
+            // Show video loading message
+            showNotification('Loading video... Click play to start.');
+        }
+        
+        /**
+         * Starts tracking video progress at regular intervals
+         */
+        function startVideoProgressTracking() {
+            if (videoProgressInterval) {
+                clearInterval(videoProgressInterval);
+            }
+            videoProgressInterval = setInterval(() => {
+                if (videoPlayer) {
+                    // Save playback position
+                    const course = categories[currentCategory].courses.find(c => c.id === currentCourse);
+                    const progressKey = `${currentCategory}-${currentCourse}-${currentVideo}-progress`;
+                    localStorage.setItem(progressKey, videoPlayer.currentTime.toString());
+                }
+            }, 5000); // Save every 5 seconds
+        }
+        
+        /**
+         * Stops tracking video progress
+         */
+        function stopVideoProgressTracking() {
+            if (videoProgressInterval) {
+                clearInterval(videoProgressInterval);
+                videoProgressInterval = null;
+            }
+        }
+        
+        /**
+         * Updates the video progress bar and time display
+         */
+        function updateVideoProgress(videoElement, progressFilled, timeDisplay) {
+            if (videoElement.duration) {
+                const progress = (videoElement.currentTime / videoElement.duration) * 100;
+                progressFilled.style.width = `${progress}%`;
+                
+                const formatTime = (seconds) => {
+                    const mins = Math.floor(seconds / 60);
+                    const secs = Math.floor(seconds % 60);
+                    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+                };
+                
+                timeDisplay.textContent = `${formatTime(videoElement.currentTime)} / ${formatTime(videoElement.duration)}`;
+            }
+        }
+        
+        /**
+         * Marks the current video as watched
+         */
+        function markVideoAsWatched() {
+            const course = categories[currentCategory].courses.find(c => c.id === currentCourse);
+            if (currentVideo > course.completedVideos) {
+                course.completedVideos = currentVideo;
+                // Save progress
+                saveUserData();
+                showNotification('Video marked as watched. You can now proceed to the quiz.');
+            }
+        }
+
+        // ===== PAGE NAVIGATION FUNCTIONS =====
+        
+        function showPage(pageId) {
+            // Stop any video playback when leaving video page
+            if (pageId !== 'video' && videoPlayer) {
+                videoPlayer.pause();
+                stopVideoProgressTracking();
+            }
+            
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            document.getElementById(pageId).classList.add('active');
+            
+            if (pageId === 'home') {
+                initializeHomePage();
+            } else if (pageId === 'categories') {
+                initializeCategoriesPage();
+            } else if (pageId === 'courses') {
+                initializeCoursesPage();
+            } else if (pageId === 'video') {
+                initializeVideoPage();
+            } else if (pageId === 'material') {
+                initializeMaterialPage();
+            } else if (pageId === 'quiz') {
+                initializeQuizPage();
+            } else if (pageId === 'finalExam') {
+                initializeFinalExamPage();
+            } else if (pageId === 'certificate') {
+                initializeCertificatePage();
+            }
+        }
+        
+        function showNotification(message) {
+            const existingNotifications = document.querySelectorAll('.notification');
+            existingNotifications.forEach(notification => {
+                notification.remove();
+            });
+            
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 3000);
+        }
+
+        // ===== AUTHENTICATION FUNCTIONS =====
+        
+        function login() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            if (email && password) {
+                if (loadUserData() && currentUser.email === email) {
+                    document.getElementById('userName').textContent = `Welcome back, ${currentUser.name}`;
+                    document.getElementById('welcomeMessage').textContent = `Welcome back, ${currentUser.name}!`;
+                    showNotification(`Welcome back, ${currentUser.name}! We're glad to have you continue your studies.`);
+                } else {
+                    if (email === "demo@example.com" && password === "password") {
+                        currentUser = {
+                            name: "Demo User",
+                            email: email,
+                            category: "certificate",
+                            isNew: true
+                        };
+                        document.getElementById('userName').textContent = `Welcome, ${currentUser.name}`;
+                        document.getElementById('welcomeMessage').textContent = `Welcome to Pathfinder International Bible College, ${currentUser.name}!`;
+                        showNotification(`Welcome to Pathfinder International Bible College, ${currentUser.name}! May God bless your studies.`);
+                        saveUserData();
+                    } else {
+                        showNotification('Invalid credentials. Use demo@example.com / password for demo access.');
+                        return;
+                    }
+                }
+                
+                document.getElementById('header').style.display = 'block';
+                document.getElementById('footer').style.display = 'block';
+                
+                showPage('home');
+            } else {
+                showNotification('Please enter both email and password');
+            }
+        }
+        
+        function signup() {
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const category = document.getElementById('signupCategory').value;
+            
+            if (name && email && password && category) {
+                currentUser = {
+                    name: name,
+                    email: email,
+                    category: category,
+                    isNew: true
+                };
+                
+                document.getElementById('userName').textContent = `Welcome, ${currentUser.name}`;
+                document.getElementById('welcomeMessage').textContent = `Welcome to Pathfinder International Bible College, ${currentUser.name}!`;
+                showNotification(`Welcome to Pathfinder International Bible College, ${currentUser.name}! Your spiritual journey begins now.`);
+                
+                document.getElementById('header').style.display = 'block';
+                document.getElementById('footer').style.display = 'block';
+                
+                saveUserData();
+                showPage('home');
+            } else {
+                showNotification('Please fill in all fields to create your account');
+            }
+        }
+        
+        function logout() {
+            if (videoPlayer) {
+                videoPlayer.pause();
+                stopVideoProgressTracking();
+            }
+            currentUser = null;
+            document.getElementById('header').style.display = 'none';
+            document.getElementById('footer').style.display = 'none';
+            showPage('login');
+            showNotification('You have been successfully logged out. God bless you!');
+        }
+
+        // ===== COURSE NAVIGATION FUNCTIONS =====
+        
+        function selectCategory(categoryId) {
+            currentCategory = categoryId;
+            showPage('courses');
+        }
+        
+        function selectCourse(courseId) {
+            currentCourse = courseId;
+            currentVideo = 1;
+            showPage('video');
+        }
+        
+        function selectVideo(videoNumber) {
+            const course = categories[currentCategory].courses.find(c => c.id === currentCourse);
+            const progressPerVideo = 100 / course.videos;
+            const requiredProgress = (videoNumber - 1) * progressPerVideo;
+            
+            if (videoNumber === 1 || course.progress >= requiredProgress) {
+                currentVideo = videoNumber;
+                initializeVideoPage();
+            } else {
+                showNotification('You need to complete the previous video and pass the quiz to unlock this video.');
+            }
+        }
+        
+        function takeQuiz() {
+            showPage('quiz');
+        }
+        
+        function takeFinalExam() {
+            showPage('finalExam');
+        }
+
+        // ===== PAGE INITIALIZATION FUNCTIONS =====
+        
+        function initializeHomePage() {
+            if (currentUser && currentUser.isNew) {
+                document.getElementById('welcomeMessage').textContent = `Welcome to Pathfinder International Bible College, ${currentUser.name}!`;
+                currentUser.isNew = false;
+            } else {
+                document.getElementById('welcomeMessage').textContent = `Welcome back, ${currentUser.name}!`;
+            }
+            
+            const progressContainer = document.getElementById('progressContainer');
+            progressContainer.innerHTML = '';
+            
+            for (const category in categories) {
+                const categoryData = categories[category];
+                const totalCourses = categoryData.courses.length;
+                const completedCourses = categoryData.courses.filter(course => course.progress === 100).length;
+                const overallProgress = categoryData.courses.reduce((sum, course) => sum + course.progress, 0) / totalCourses;
+                
+                const progressItem = document.createElement('div');
+                progressItem.className = 'progress-item';
+                progressItem.innerHTML = `
+                    <h3>${categoryData.name}</h3>
+                    <p>Completed: ${completedCourses} of ${totalCourses} courses</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${overallProgress}%"></div>
+                    </div>
+                    <p>${overallProgress === 100 ? 'Congratulations! You have completed this category.' : 'Continue your journey to complete this category and earn your certificate!'}</p>
+                `;
+                
+                progressContainer.appendChild(progressItem);
+            }
+            
+            const certificatesContainer = document.getElementById('certificatesContainer');
+            certificatesContainer.innerHTML = '';
+            
+            let hasCertificates = false;
+            
+            for (const category in categories) {
+                const categoryData = categories[category];
+                const completedCourses = categoryData.courses.filter(course => course.progress === 100).length;
+                
+                if (completedCourses === categoryData.courses.length) {
+                    hasCertificates = true;
+                    const certificateItem = document.createElement('div');
+                    certificateItem.className = 'certificate-item';
+                    certificateItem.innerHTML = `
+                        <i class="fas fa-file-certificate"></i>
+                        <h3>${categoryData.name} Certificate</h3>
+                        <p>Click to view your certificate</p>
+                    `;
+                    certificateItem.onclick = () => {
+                        currentCategory = category;
+                        showPage('certificate');
+                    };
+                    certificatesContainer.appendChild(certificateItem);
+                }
+            }
+            
+            if (!hasCertificates) {
+                const noCertificateItem = document.createElement('div');
+                noCertificateItem.className = 'certificate-item';
+                noCertificateItem.innerHTML = `
+                    <i class="fas fa-file-certificate"></i>
+                    <h3>No Certificates Yet</h3>
+                    <p>Complete a category to download your certificate</p>
+                `;
+                certificatesContainer.appendChild(noCertificateItem);
+            }
+            
+            const attendanceCalendar = document.getElementById('attendanceCalendar');
+            attendanceCalendar.innerHTML = '';
+            
+            const today = new Date();
+            const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+            const storedAttendance = getStoredAttendance();
+            const currentMonth = `${today.getFullYear()}-${today.getMonth()}`;
+            
+            for (let i = 1; i <= daysInMonth; i++) {
+                const day = document.createElement('div');
+                day.className = 'attendance-day';
+                day.textContent = i;
+                
+                const dayKey = `${currentMonth}-${i}`;
+                if (storedAttendance[dayKey]) {
+                    day.classList.add(storedAttendance[dayKey]);
+                } else if (i === today.getDate()) {
+                    day.classList.add('absent');
+                } else if (i < today.getDate()) {
+                    day.classList.add(Math.random() > 0.3 ? 'present' : 'absent');
+                }
+                
+                if (i === today.getDate()) {
+                    day.onclick = () => markAttendance();
+                }
+                
+                attendanceCalendar.appendChild(day);
+            }
+        }
+        
+        function initializeCategoriesPage() {
+            for (const category in categories) {
+                const categoryData = categories[category];
+                const overallProgress = categoryData.courses.reduce((sum, course) => sum + course.progress, 0) / categoryData.courses.length;
+                
+                const progressElement = document.getElementById(`${category}Progress`);
+                if (progressElement) {
+                    progressElement.style.width = `${overallProgress}%`;
+                }
+            }
+        }
+        
+        function initializeCoursesPage() {
+            document.getElementById('coursesCategory').textContent = categories[currentCategory].name;
+            
+            const coursesList = document.getElementById('coursesList');
+            coursesList.innerHTML = '';
+            
+            categories[currentCategory].courses.forEach(course => {
+                const courseItem = document.createElement('div');
+                courseItem.className = 'course-item';
+                courseItem.onclick = () => selectCourse(course.id);
+                
+                const statusText = course.progress === 100 ? 'Completed' : 
+                                 course.progress > 0 ? 'In Progress' : 'Not Started';
+                
+                courseItem.innerHTML = `
+                    <h3>${course.name} <span class="course-status">${statusText}</span></h3>
+                    <p>Progress: ${course.progress}% (${course.completedVideos}/${course.videos} videos completed)</p>
+                `;
+                
+                coursesList.appendChild(courseItem);
+            });
+        }
+        
+        /**
+         * Initializes the video page with the selected video
+         * IMPORTANT: This function loads your actual MP4 videos
+         */
+        function initializeVideoPage() {
+            const course = categories[currentCategory].courses.find(c => c.id === currentCourse);
+            document.getElementById('videoCourse').textContent = course.name;
+            
+            // IMPORTANT: This gets the actual video file path from your course data
+            const videoFile = course.videoFiles[currentVideo - 1];
+            
+            // Update video details
+            document.getElementById('videoDetails').innerHTML = `
+                <h4>Video ${currentVideo}: ${course.name}</h4>
+                <p>This is video ${currentVideo} of ${course.videos} in this course. Watch the video, study the material, and pass the quiz to proceed to the next video.</p>
+                <p><strong>Video File:</strong> ${videoFile}</p>
+                <p><strong>Progress:</strong> ${course.completedVideos}/${course.videos} videos completed</p>
+            `;
+            
+            // Initialize the video player with your actual MP4 file
+            initializeVideoPlayer(videoFile);
+            
+            // Update video list
+            const videoListContainer = document.getElementById('videoListContainer');
+            videoListContainer.innerHTML = '';
+            
+            for (let i = 1; i <= course.videos; i++) {
+                const videoItem = document.createElement('div');
+                videoItem.className = 'video-item';
+                
+                // Check if video is unlocked
+                const progressPerVideo = 100 / course.videos;
+                const isUnlocked = i === 1 || course.progress >= (i - 1) * progressPerVideo;
+                
+                if (!isUnlocked) {
+                    videoItem.classList.add('locked');
+                }
+                
+                if (i === currentVideo) {
+                    videoItem.classList.add('active');
+                }
+                
+                videoItem.innerHTML = `
+                    <i class="fas ${isUnlocked ? 'fa-play-circle' : 'fa-lock'}"></i>
+                    <span>Video ${i}: ${isUnlocked ? 'Available' : 'Locked'}</span>
+                `;
+                
+                if (isUnlocked) {
+                    videoItem.onclick = () => selectVideo(i);
+                }
+                
+                videoListContainer.appendChild(videoItem);
+            }
+        }
+        
+        function initializeMaterialPage() {
+            document.getElementById('materialContent').innerHTML = 
+                videoMaterials[currentVideo] || `
+                    <h3>Study Material for Video ${currentVideo}</h3>
+                    <p>Study material for this video is being prepared. In the meantime, please review the video content and proceed to the quiz when you're ready.</p>
+                `;
+        }
+        
+        function initializeQuizPage() {
+            let questions = [];
+            
+            if (currentCategory === 'certificate') {
+                questions = quizData[currentVideo] || getDefaultQuestions();
+            } else if (currentCategory === 'diploma') {
+                const diplomaCourseId = currentCourse + 8;
+                questions = diplomaQuizData[diplomaCourseId] || getDefaultQuestions();
+            } else if (currentCategory === 'phd') {
+                const phdCourseId = currentCourse + 16;
+                questions = phdQuizData[phdCourseId] || getDefaultQuestions();
+            }
+            
+            quizQuestions = questions;
+            currentQuestion = 0;
+            userAnswers = new Array(quizQuestions.length).fill(null);
+            
+            displayQuestion();
+        }
+        
+        function getDefaultQuestions() {
+            return [
+                {
+                    question: "Sample question for this course",
+                    options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+                    correct: 0
+                },
+                {
+                    question: "Another sample question",
+                    options: ["Option A", "Option B", "Option C", "Option D"],
+                    correct: 1
+                }
+            ];
+        }
+        
+        function initializeFinalExamPage() {
+            document.getElementById('examCategoryName').textContent = categories[currentCategory].name;
+            
+            examQuestions = examData[currentCategory] || examData.certificate;
+            document.getElementById('examQuestionCount').textContent = examQuestions.length;
+            
+            currentExamQuestion = 0;
+            userExamAnswers = new Array(examQuestions.length).fill(null);
+            
+            displayExamQuestion();
+        }
+        
+        function initializeCertificatePage() {
+            document.getElementById('certStudentName').textContent = currentUser ? currentUser.name : 'Student Name';
+            document.getElementById('certCourseName').textContent = categories[currentCategory].name;
+            
+            const today = new Date();
+            document.getElementById('certDate').textContent = today.toLocaleDateString();
+            
+            document.getElementById('certId').textContent = `PIBC-${today.getFullYear()}-${currentCategory}-${Math.floor(Math.random() * 1000)}`;
+        }
+
+        // ===== QUIZ AND EXAM FUNCTIONS =====
+        
+        function displayQuestion() {
+            if (currentQuestion < quizQuestions.length) {
+                const question = quizQuestions[currentQuestion];
+                document.getElementById('quizQuestion').textContent = `Question ${currentQuestion + 1}: ${question.question}`;
+                
+                const optionsContainer = document.getElementById('quizOptions');
+                optionsContainer.innerHTML = '';
+                
+                question.options.forEach((option, index) => {
+                    const optionElement = document.createElement('div');
+                    optionElement.className = 'quiz-option';
+                    if (userAnswers[currentQuestion] === index) {
+                        optionElement.classList.add('selected');
+                    }
+                    optionElement.textContent = option;
+                    optionElement.onclick = () => selectOption(index);
+                    optionsContainer.appendChild(optionElement);
+                });
+                
+                document.getElementById('prevQuestion').style.display = currentQuestion > 0 ? 'inline-block' : 'none';
+                document.getElementById('nextQuestion').style.display = currentQuestion < quizQuestions.length - 1 ? 'inline-block' : 'none';
+                document.getElementById('submitQuiz').style.display = currentQuestion === quizQuestions.length - 1 ? 'inline-block' : 'none';
+            }
+        }
+        
+        function selectOption(optionIndex) {
+            userAnswers[currentQuestion] = optionIndex;
+            displayQuestion();
+        }
+        
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                displayQuestion();
+            }
+        }
+        
+        function nextQuestion() {
+            if (currentQuestion < quizQuestions.length - 1) {
+                currentQuestion++;
+                displayQuestion();
+            }
+        }
+        
+        function submitQuiz() {
+            let correctAnswers = 0;
+            quizQuestions.forEach((question, index) => {
+                if (userAnswers[index] === question.correct) {
+                    correctAnswers++;
+                }
+            });
+            
+            const score = (correctAnswers / quizQuestions.length) * 100;
+            
+            if (score >= 80) {
+                showNotification(`Congratulations! You scored ${score.toFixed(0)}% and passed the quiz. You can now proceed to the next video.`);
+                
+                const course = categories[currentCategory].courses.find(c => c.id === currentCourse);
+                const progressPerVideo = 100 / course.videos;
+                
+                if (currentVideo > course.completedVideos) {
+                    course.completedVideos = currentVideo;
+                    course.progress = (currentVideo / course.videos) * 100;
+                    
+                    saveUserData();
+                    
+                    if (currentVideo === course.videos) {
+                        course.progress = 100;
+                        showNotification('Congratulations! You have completed this course. You can now take the final exam for your certificate.');
+                    }
+                }
+                
+                showPage('video');
+            } else {
+                showNotification(`You scored ${score.toFixed(0)}%. You need at least 80% to pass. Please review the material and try again.`);
+            }
+        }
+        
+        function displayExamQuestion() {
+            if (currentExamQuestion < examQuestions.length) {
+                const question = examQuestions[currentExamQuestion];
+                document.getElementById('examQuestion').textContent = `Question ${currentExamQuestion + 1}: ${question.question}`;
+                
+                const optionsContainer = document.getElementById('examOptions');
+                optionsContainer.innerHTML = '';
+                
+                question.options.forEach((option, index) => {
+                    const optionElement = document.createElement('div');
+                    optionElement.className = 'quiz-option';
+                    if (userExamAnswers[currentExamQuestion] === index) {
+                        optionElement.classList.add('selected');
+                    }
+                    optionElement.textContent = option;
+                    optionElement.onclick = () => selectExamOption(index);
+                    optionsContainer.appendChild(optionElement);
+                });
+                
+                document.getElementById('prevExamQuestion').style.display = currentExamQuestion > 0 ? 'inline-block' : 'none';
+                document.getElementById('nextExamQuestion').style.display = currentExamQuestion < examQuestions.length - 1 ? 'inline-block' : 'none';
+                document.getElementById('submitExam').style.display = currentExamQuestion === examQuestions.length - 1 ? 'inline-block' : 'none';
+            }
+        }
+        
+        function selectExamOption(optionIndex) {
+            userExamAnswers[currentExamQuestion] = optionIndex;
+            displayExamQuestion();
+        }
+        
+        function previousExamQuestion() {
+            if (currentExamQuestion > 0) {
+                currentExamQuestion--;
+                displayExamQuestion();
+            }
+        }
+        
+        function nextExamQuestion() {
+            if (currentExamQuestion < examQuestions.length - 1) {
+                currentExamQuestion++;
+                displayExamQuestion();
+            }
+        }
+        
+        function submitExam() {
+            let correctAnswers = 0;
+            examQuestions.forEach((question, index) => {
+                if (userExamAnswers[index] === question.correct) {
+                    correctAnswers++;
+                }
+            });
+            
+            const score = (correctAnswers / examQuestions.length) * 100;
+            
+            if (score >= 80) {
+                showNotification(`Congratulations! You scored ${score.toFixed(0)}% and passed the final exam. Your certificate is now available!`);
+                
+                categories[currentCategory].courses.forEach(course => {
+                    course.progress = 100;
+                    course.completedVideos = course.videos;
+                });
+                
+                saveUserData();
+                
+                showPage('certificate');
+            } else {
+                showNotification(`You scored ${score.toFixed(0)}%. You need at least 80% to pass the final exam. Please study more and try again.`);
+            }
+        }
+
+        // ===== CERTIFICATE FUNCTION =====
+        
+        function downloadCertificate() {
+            showNotification('Certificate download would be initiated in a real application. This would generate a PDF certificate with all the details shown.');
+        }
+
+        // ===== ATTENDANCE FUNCTION =====
+        
+        function markAttendance() {
+            const today = new Date();
+            const day = today.getDate();
+            const month = `${today.getFullYear()}-${today.getMonth()}`;
+            const dayKey = `${month}-${day}`;
+            
+            const storedAttendance = getStoredAttendance();
+            storedAttendance[dayKey] = 'present';
+            saveAttendance(storedAttendance);
+            
+            const attendanceDays = document.querySelectorAll('.attendance-day');
+            attendanceDays.forEach(attDay => {
+                if (parseInt(attDay.textContent) === day) {
+                    attDay.classList.remove('absent');
+                    attDay.classList.add('present');
+                }
+            });
+            
+            showNotification("Today's attendance has been marked. Great job staying consistent with your studies!");
+        }
+
+        // ===== CONTACT FORM FUNCTION =====
+        
+        function sendMessage() {
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const message = document.getElementById('contactMessage').value;
+            
+            if (name && email && message) {
+                showNotification('Thank you for your message. We will get back to you soon. God bless you!');
+                document.getElementById('contactName').value = '';
+                document.getElementById('contactEmail').value = '';
+                document.getElementById('contactMessage').value = '';
+            } else {
+                showNotification('Please fill in all fields to send your message');
+            }
+        }
+
+        // ===== APPLICATION INITIALIZATION =====
+        
+        window.onload = function() {
+            if (loadUserData()) {
+                document.getElementById('header').style.display = 'block';
+                document.getElementById('footer').style.display = 'block';
+                document.getElementById('userName').textContent = `Welcome back, ${currentUser.name}`;
+                showPage('home');
+            } else {
+                showPage('login');
+            }
+        };
+    </script>
+</body>
+</html>
